@@ -1,39 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import SocialLogin from '../SocialLogin/SocialLogin';
+import { tokenState } from '../SocialLogin/GlobalState';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-
 const Navigation = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const [token, setToken] = useRecoilState(tokenState);
+
+  const handleLogout = () => {
+    localStorage.removeItem('morganToken');
+    setToken('');
+  };
+
   return (
-    <Nav>
-      <NavInner>
-        <LogoBtn to="/">
-          <LogoImg src="/images/bobMorgan-logo.png" alt="" />
-        </LogoBtn>
-        <GnbMenus>
-          {MENU_LIST.map(menuList => {
-            return (
-              <GnbMenuLink
-                key={menuList.id}
-                to={menuList.link}
-                isActive={(match, location) => {
-                  if (!match) {
-                    return false;
-                  }
+    <>
+      <Nav>
+        <NavInner>
+          <LogoBtn to="/">
+            <LogoImg src="/images/bobMorgan-logo.png" alt="" />
+          </LogoBtn>
+          <GnbMenus>
+            {MENU_LIST.map(menuList => {
+              return (
+                <GnbMenuLink
+                  key={menuList.id}
+                  to={menuList.link}
+                  isActive={(match, location) => {
+                    if (!match) {
+                      return false;
+                    }
+                  }}
+                >
+                  {menuList.name}
+                </GnbMenuLink>
+              );
+            })}
+          </GnbMenus>
+          <UtilBox>
+            <CsBtn>
+              친절상담 <CsStrong>* 8716-6728</CsStrong>
+            </CsBtn>
+
+            {!token ? (
+              <LoginBtn
+                to=""
+                onClick={() => {
+                  setIsLoginOpen(true);
                 }}
               >
-                {menuList.name}
-              </GnbMenuLink>
-            );
-          })}
-        </GnbMenus>
-        <UtilBox>
-          <CsBtn>
-            친절상담 <CsStrong>* 8716-6728</CsStrong>
-          </CsBtn>
-          <LoginBtn to="/">로그인</LoginBtn>
-        </UtilBox>
-      </NavInner>
-    </Nav>
+                로그인
+              </LoginBtn>
+            ) : (
+              <LoginBtn
+                to=""
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                로그아웃
+              </LoginBtn>
+            )}
+          </UtilBox>
+        </NavInner>
+      </Nav>
+      {isLoginOpen && (
+        <SocialLogin
+          isLoginOpen={isLoginOpen}
+          setIsLoginOpen={setIsLoginOpen}
+        />
+      )}
+    </>
   );
 };
 
