@@ -1,0 +1,22 @@
+{
+  "results": {
+    "place_id": 1,
+    "place_name": "토투가커피",
+    "place_address": "제주특별자치도 제주시 한림읍 귀덕9길 19",
+    "place_opening_hours": "10:00 - 18:00, 연중무휴",
+    "place_description": "맞아, 까눌레는 이래야지! 라는 말이 절로 나오는 집!",
+    "place_maximum_number_of_subscriber": 0,
+    "place_latitude": "33.44283842",
+    "place_longitude": "126.28994200",
+    "place_able_to_reserve": false,
+    "place_closed_temporarily": false,
+    "place_category": "카페",
+    "place_region": "애월 · 한림",
+    "place_image_list": [
+      "https://mustgo.carmore.kr/data/file/matzip/977797506_dMG6qOYk_bbb37afa85c4c5bf67abe3e40aea39f356c852bf.jpeg"
+    ],
+    "menu_name_list": ["까눌레", "아메리카노", "핸드드립"],
+    "menu_price_list": ["3000", "5000", "6000"],
+    "menu_is_signature": [true, true, false]
+  }
+}
