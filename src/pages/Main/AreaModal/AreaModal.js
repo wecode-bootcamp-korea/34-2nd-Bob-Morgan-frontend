@@ -19,7 +19,7 @@ const AreaModal = ({
       center: new kakao.maps.LatLng(33.50431022611561, 126.49432520073913),
       level: 4,
     };
-
+    console.log(kakao.maps.services);
     let map = new kakao.maps.Map(mapId.current, options);
     let geocoder = new kakao.maps.services.Geocoder();
 
