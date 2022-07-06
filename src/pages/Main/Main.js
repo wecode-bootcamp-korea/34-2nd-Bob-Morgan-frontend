@@ -97,7 +97,7 @@ const Main = () => {
             to={
               searchAreaName === ''
                 ? ''
-                : `/places/search?region=${searchAreaId}&date=${searchDate}`
+                : `/searchlist?region=${searchAreaId}&date=${searchDate}`
             }
           >
             <S.SearchIcon src="/images/icon_search.svg" alt="" />

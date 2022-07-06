@@ -14,7 +14,7 @@ const Router = props => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/searchlist" element={<SearchList />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/signin/kakao" element={<KakaoLogin />} />
       </Routes>
       <Footer />

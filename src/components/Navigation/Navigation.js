@@ -14,6 +14,8 @@ const Navigation = () => {
     setToken('');
   };
 
+  let activeClassName = 'active';
+
   return (
     <>
       <Nav>
@@ -27,11 +29,9 @@ const Navigation = () => {
                 <GnbMenuLink
                   key={menuList.id}
                   to={menuList.link}
-                  isActive={(match, location) => {
-                    if (!match) {
-                      return false;
-                    }
-                  }}
+                  className={({ isActive }) =>
+                    isActive ? activeClassName : undefined
+                  }
                 >
                   {menuList.name}
                 </GnbMenuLink>
@@ -45,7 +45,6 @@ const Navigation = () => {
 
             {!token ? (
               <LoginBtn
-                to=""
                 onClick={() => {
                   setIsLoginOpen(true);
                 }}
@@ -54,7 +53,6 @@ const Navigation = () => {
               </LoginBtn>
             ) : (
               <LoginBtn
-                to=""
                 onClick={() => {
                   handleLogout();
                 }}
@@ -100,6 +98,7 @@ const Nav = styled.div`
   width: 100%;
   height: 80px;
   background-color: #fff;
+  z-index: 20;
 
   &:after {
     content: '';
@@ -183,7 +182,10 @@ const CsStrong = styled.strong`
   font-weight: 700;
 `;
 
-const LoginBtn = styled(Link)`
+const LoginBtn = styled.button`
+  display: inline-block;
+  border: 0;
+  background: none;
   font-size: 15px;
   line-height: 22px;
   color: #f69d3e;
