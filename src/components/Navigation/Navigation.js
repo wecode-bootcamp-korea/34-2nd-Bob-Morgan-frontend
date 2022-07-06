@@ -100,6 +100,7 @@ const Nav = styled.div`
   width: 100%;
   height: 80px;
   background-color: #fff;
+  z-index: 20;
 
   &:after {
     content: '';
