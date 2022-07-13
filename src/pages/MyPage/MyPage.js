@@ -165,6 +165,7 @@ const UserInfoLoginBtn = styled.button`
   border: 1px solid #ff9800;
   border-radius: 25px;
   line-height: 1.5;
+  cursor: pointer;
 `;
 
 const UserInfoFooter = styled.div`
@@ -248,4 +249,5 @@ const ReservationBtn = styled.button`
   border: 1px solid #ff9800;
   border-radius: 25px;
   line-height: 1.5;
+  cursor: pointer;
 `;
