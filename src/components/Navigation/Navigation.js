@@ -45,7 +45,6 @@ const Navigation = () => {
 
             {!token ? (
               <LoginBtn
-                to=""
                 onClick={() => {
                   setIsLoginOpen(true);
                 }}
@@ -54,7 +53,6 @@ const Navigation = () => {
               </LoginBtn>
             ) : (
               <LoginBtn
-                to=""
                 onClick={() => {
                   handleLogout();
                 }}
@@ -183,7 +181,10 @@ const CsStrong = styled.strong`
   font-weight: 700;
 `;
 
-const LoginBtn = styled(Link)`
+const LoginBtn = styled.button`
+  display: inline-block;
+  border: 0;
+  background: none;
   font-size: 15px;
   line-height: 22px;
   color: #f69d3e;
