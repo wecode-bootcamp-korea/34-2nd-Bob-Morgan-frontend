@@ -5,6 +5,7 @@ import Main from './pages/Main/Main';
 import SearchList from './pages/SearchList/SearchList';
 import Detail from './pages/Detail/Detail';
 import KakaoLogin from './components/SocialLogin/KakaoLogin';
+import Footer from './components/Footer/Footer';
 
 const Router = props => {
   return (
@@ -16,6 +17,7 @@ const Router = props => {
         <Route path="/detail" element={<Detail />} />
         <Route path="/signin/kakao" element={<KakaoLogin />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
