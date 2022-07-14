@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-
+import { API } from '../../config';
 import Carousel from './DetailCarousel';
 import Review from './Review';
 import Map from './Map';
@@ -34,8 +34,10 @@ const Detail = () => {
   ];
 
   useEffect(() => {
-    fetch('/data/detail.json')
+    // fetch('http://10.58.3.202:8000/places/1')
+    fetch(`/data/detail.json`)
       .then(res => res.json())
+
       .then(detailInfo => {
         setDetailInfo(detailInfo.results);
       });
@@ -61,6 +63,7 @@ const Detail = () => {
       isSetScroll(false);
     }
   };
+
   const isDataEmpty = Object.keys(detailInfo).length === 0;
 
   if (isDataEmpty) return <>Loading,...</>;
@@ -68,7 +71,7 @@ const Detail = () => {
   return (
     <S.Detail ref={detailRef}>
       <S.CarouselSection />
-      <Carousel />
+      <Carousel carouselImage={detailInfo.place_images} />
       <S.CarouselSection />
       <S.ReservationSection>
         <ReservatonInfo />
@@ -98,30 +101,19 @@ const Detail = () => {
             <S.ContentsTitle>메뉴 정보</S.ContentsTitle>
             <S.MenuContents>
               <S.MenuImage
-                src={detailInfo.place_image_list}
+                src={detailInfo.place_images[0].url}
                 alt={detailInfo.place_name}
               />
               <S.Menulist>
                 <S.MenuTitle>메뉴 이름 및 가격 </S.MenuTitle>
-
-                <S.Menu>
-                  <S.MenuName> {detailInfo.menu_name_list[0]}</S.MenuName>
-                  <S.MenuPrice>
-                    {Number(detailInfo.menu_price_list[0]).toLocaleString()}원
-                  </S.MenuPrice>
-                </S.Menu>
-                <S.Menu>
-                  <S.MenuName> {detailInfo.menu_name_list[1]}</S.MenuName>
-                  <S.MenuPrice>
-                    {Number(detailInfo.menu_price_list[1]).toLocaleString()}원
-                  </S.MenuPrice>
-                </S.Menu>
-                <S.Menu>
-                  <S.MenuName> {detailInfo.menu_name_list[2]}</S.MenuName>
-                  <S.MenuPrice>
-                    {Number(detailInfo.menu_price_list[2]).toLocaleString()}원
-                  </S.MenuPrice>
-                </S.Menu>
+                {detailInfo.menus.map(menuInfo => {
+                  return (
+                    <S.Menu key={menuInfo.id}>
+                      <S.MenuName> {menuInfo.name}</S.MenuName>
+                      <S.MenuPrice>{menuInfo.price}원</S.MenuPrice>
+                    </S.Menu>
+                  );
+                })}
               </S.Menulist>
             </S.MenuContents>
           </S.MenuInfo>

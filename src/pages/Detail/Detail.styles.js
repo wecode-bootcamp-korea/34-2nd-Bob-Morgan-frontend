@@ -201,6 +201,7 @@ export const Menulist = styled.div`
 `;
 
 export const Menu = styled.div`
+  ${({ theme }) => theme.flexMixin('', '')};
   width: 100%;
   padding: 20px;
   margin-bottom: 14px;
@@ -227,6 +228,6 @@ export const ReservationSection = styled.div`
   position: relative;
   margin: 0 auto;
   width: 780px;
-  z-index: 3;
+  z-index: 1;
   top: -40px;
 `;

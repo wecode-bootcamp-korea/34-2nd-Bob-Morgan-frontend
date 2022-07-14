@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 
 export const Container = styled.div`
+  position: relative;
   height: 360px;
   overflow: hidden;
+  z-index: -1;
 `;
 
 export const StyledSlider = styled(Slider)`

@@ -67,8 +67,8 @@ export const Info = styled.div`
 `;
 
 export const ReservationButton = styled.button`
-  ${({ theme }) => theme.flexMixin('', '')};
-
+  ${({ theme }) => theme.flexMixin('center', 'center')};
+  flex-direction: column;
   width: 120px;
   height: 160px;
   border-radius: 10px;
@@ -81,8 +81,13 @@ export const ReservationButton = styled.button`
   cursor: pointer;
   box-shadow: 0 4px 4px 0 rgba(95, 95, 95, 0.08),
     0 4px 4px 0 rgba(95, 95, 95, 0.01);
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: ${props => props.theme.keyColor};
+  }
 `;
 
 export const DoneIcon = styled.img`
-  width: 30px;
+  width: 26px;
+  margin-bottom: 12px;
 `;

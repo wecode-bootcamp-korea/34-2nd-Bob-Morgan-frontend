@@ -3,7 +3,7 @@ import * as S from './DetailCarousel.style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const DetailCarousel = () => {
+const DetailCarousel = ({ carouselImage }) => {
   const settings = {
     className: 'slider variable-width',
     dots: false,
@@ -19,10 +19,12 @@ const DetailCarousel = () => {
     variableWidth: true,
     pauseOnHover: false,
   };
+  console.log(carouselImage);
+
   return (
     <S.Container>
       <S.StyledSlider {...settings}>
-        {items.map(item => {
+        {carouselImage.map(item => {
           return (
             <div key={item.id}>
               <S.ImageContainer>

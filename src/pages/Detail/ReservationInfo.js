@@ -35,7 +35,7 @@ const ResevationInfo = () => {
                 value={value}
                 onChange={onChangeTime}
                 minuteStep={30}
-                defaultValue={moment('12:08', format)}
+                defaultValue={moment()}
                 format={format}
               />
             </S.Info>
