@@ -106,6 +106,15 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
 `;
  ```
  슬라이드에서 재공해주는 버튼을 사용하기 위해서 슬라이드를 감싸는 컴포넌트를 만들어준뒤에 scss nesting을 활용해서 버튼스타일을 변경해준다.
+ 
+ - 모달창 만들기 <br />
+  ```javascript
+  <S.SearchArea onClick={() => setIsOpen(true)}>
+  
+  const [isOpen, setIsOpen] = useState(false);
+  ```
+  isopen이라는 스테이트를 만들어서 false를 담아두고 클릭했을때 true로 변경시킨다. <br />
+  그리고 배경이나 모달창안에 엑스버튼을 부르면 스테이트에 담아준 값을 다시 false로 변경시켜서 닫아준다.
 
 </br>
 
