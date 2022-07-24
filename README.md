@@ -44,7 +44,18 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
 
 - main slick-slider
  : https://react-slick.neostack.com 사용해서 기술 구현
- ```
+ ``` javascript
+ const settings = {
+    dots: true,
+    arrows: false,
+    fade: true,
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+  };
+  
  <S.StyledSlider {...settings}>
     {SLIDER_ITEMS.map(item => {
       return (
@@ -55,6 +66,7 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
     })}
   </S.StyledSlider>
  ```
+ 변수 선언한 settings 에다가 슬라이드에 필요한내용을 넣고 슬라이드를 돌려줄 `div`에다가 변수를 복사해서 넣어줘서 슬라이드를 실행시켜준다.
 
 </br>
 
