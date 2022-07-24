@@ -120,7 +120,17 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
   isopen이라는 스테이트를 만들어서 false를 담아두고 클릭했을때 true로 변경시킨다. <br />
   그리고 배경이나 모달창안에 엑스버튼을 부르면 스테이트에 담아준 값을 다시 false로 변경시켜서 닫아준다.
   
-  - 카카오맵 
+  - 카카오맵  <br />
+   : https://apis.map.kakao.com/web/sample/coord2addr/ <br />
+     https://apis.map.kakao.com/web/sample/basicMarkerImage/ <br />
+     두가지 기능을 합쳐서 지도를 받아왔다.
+     주의할점은 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script> <br />
+     키값안에 &libraries=services 추가로 붙는 부분이 있었는데 확인꼭 한번씩 해주기! <br />
+     ``` javascript
+     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+     ```
+     이런식으로 리액트는 돔에 직접 접근할수 없기때문에
+     `const mapId = useRef();` 변수를 만들어서 useRef를 이용해서 돔에 접근한다.
 
 </br>
 
