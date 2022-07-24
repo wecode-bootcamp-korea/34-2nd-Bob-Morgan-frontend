@@ -40,6 +40,21 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
 <br />
 
 ### Main
+![main2](https://user-images.githubusercontent.com/99022588/180638257-4f79ad17-9bdd-48fe-bac9-234598a1e10b.gif)
+
+- main slick-slider
+ : https://react-slick.neostack.com 사용해서 기술 구현
+ ```
+ <S.StyledSlider {...settings}>
+    {SLIDER_ITEMS.map(item => {
+      return (
+        <S.SliderImgBox key={item.id}>
+          <S.SliderImg src={item.url} alt="비주얼 이미지" />
+        </S.SliderImgBox>
+      );
+    })}
+  </S.StyledSlider>
+ ```
 
 </br>
 
