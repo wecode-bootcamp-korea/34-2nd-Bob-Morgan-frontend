@@ -42,6 +42,9 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
 ### Main
 ![main2](https://user-images.githubusercontent.com/99022588/180638257-4f79ad17-9bdd-48fe-bac9-234598a1e10b.gif)
 
+- Navigation
+ : `const GnbMenuLink = styled(NavLink)` navLink를 활용해서 url의 주소명과 라우터의 이름이 같으면 해당 `li`에다 `.active`를 붙여줘서 어느 메뉴에 있는지 알려줄수 있다.
+
 - main slick-slider
  : https://react-slick.neostack.com 사용해서 기술 구현
  ``` javascript
