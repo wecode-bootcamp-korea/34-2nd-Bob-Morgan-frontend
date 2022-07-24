@@ -125,7 +125,7 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
      https://apis.map.kakao.com/web/sample/basicMarkerImage/ <br />
      두가지 기능을 합쳐서 지도를 받아왔다.
      주의할점은 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script> <br />
-     키값안에 &libraries=services 추가로 붙는 부분이 있었는데 확인꼭 한번씩 해주기! <br />
+     키값안에 `&libraries=services` 추가로 붙는 부분이 있었는데 확인꼭 한번씩 해주기! <br />
      ``` javascript
      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
      ```
