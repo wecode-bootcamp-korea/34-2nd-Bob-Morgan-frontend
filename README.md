@@ -67,6 +67,42 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
   </S.StyledSlider>
  ```
  변수 선언한 settings 에다가 슬라이드에 필요한내용을 넣고 슬라이드를 돌려줄 `div`에다가 변수를 복사해서 넣어줘서 슬라이드를 실행시켜준다.
+ 
+ ``` javascript
+ export const StyledSlider = styled(Slider)`
+  .slick-slide div {
+    outline: none;
+  }
+
+  .slick-dots {
+    bottom: 150px;
+    right: 0;
+    text-align: right;
+    padding: 0 50px;
+
+    li {
+      height: 5px;
+
+      button {
+        height: 5px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      &.slick-active {
+        button {
+          background: #ffad1d;
+        }
+      }
+    }
+  }
+`;
+ ```
+ 슬라이드에서 재공해주는 버튼을 사용하기 위해서 슬라이드를 감싸는 컴포넌트를 만들어준뒤에 scss nesting을 활용해서 버튼스타일을 변경해준다.
 
 </br>
 
