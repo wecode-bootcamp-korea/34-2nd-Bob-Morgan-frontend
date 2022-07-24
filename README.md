@@ -132,6 +132,20 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
      이런식으로 리액트는 돔에 직접 접근할수 없기때문에
      `const mapId = useRef();` 변수를 만들어서 useRef를 이용해서 돔에 접근한다.
 
+- react-bootstrap Tab 기능 사용하기
+  ``` javascript
+  import Tabs from 'react-bootstrap/Tabs';
+  import Tab from 'react-bootstrap/Tab';
+  
+  const [key, setKey] = useState('home');
+  
+   <Tabs defaultActiveKey="home" onSelect={k => setKey(k)}>
+    <Tab eventKey="home" title="제주">
+    <Tab eventKey="mapZone" title="지도">
+  ```
+ 내가 사용할 필수 기능에 대한부분만 bootstrap에서 불러온뒤 탭기능 사용하기 <br />
+ 스테이트안에 처음부터 보일 탭을 저장한뒤 `<Tabs defaultActiveKey="home" onSelect={k => setKey(k)}>` 보여준다.
+
 </br>
 
 ### Search
