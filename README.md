@@ -109,9 +109,13 @@ https://scrawny-opera-4c6.notion.site/ebad7fd9511642fa9de656e1226aaf07
  
  - 모달창 만들기 <br />
   ```javascript
+ const [isOpen, setIsOpen] = useState(false);
+ 
+ //모달창 열기 버튼
   <S.SearchArea onClick={() => setIsOpen(true)}>
   
-  const [isOpen, setIsOpen] = useState(false);
+  //닫기버튼
+  <S.AreaClose onClick={() => setIsOpen(false)} />
   ```
   isopen이라는 스테이트를 만들어서 false를 담아두고 클릭했을때 true로 변경시킨다. <br />
   그리고 배경이나 모달창안에 엑스버튼을 부르면 스테이트에 담아준 값을 다시 false로 변경시켜서 닫아준다.
