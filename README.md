@@ -340,4 +340,237 @@ const KakaoLogin = () => {
 
 ### 🔆Detail
 
+- serch 페이지에서 자신이 선택한 식장정보의 디테일 정보(메뉴 사진(캐러셀), 매장명, 매장 위치, 대표메뉴, 가격정보등을) 보여주고, 선택한 음시점의 날짜와 시간 예약자명 인원수와 특이사항을 기재해 예약할 수 있는 페이지이다. 
+![bobmorgan-01](https://user-images.githubusercontent.com/93850460/185525595-54bcbc30-a197-428a-9827-3240236e2ca0.gif)
+
+#### 매장 음식 사진 캐러셀  slick-slider : https://react-slick.neostack.com 사용해서 기술 구현
+
+DetailCarousel.js 
+```javascript
+import React from 'react';
+import * as S from './DetailCarousel.style';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+const DetailCarousel = ({ carouselImage }) => {
+  const settings = {
+    className: 'slider variable-width',
+    dots: false,
+    arrows: true,
+    infinite: true,
+    centerMode: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 8000,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    variableWidth: true,
+    pauseOnHover: false,
+  };
+
+  return (
+    <S.Container>
+      <S.StyledSlider {...settings}>
+        {carouselImage.map(item => {
+          return (
+            <div key={item.id}>
+              <S.ImageContainer>
+                <S.Image src={item.url} />
+              </S.ImageContainer>
+            </div>
+          );
+        })}
+      </S.StyledSlider>
+    </S.Container>
+  );
+};
+
+```
+구현하고자 하는 캐러셀 옵션을 settings 변수로 선언하여 사용하였다. 
+
+#### 예약기능
+
+```
+import React, { useEffect, useState, Space } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { TimePicker, InputNumber, Input, DatePicker } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { tokenState } from '../../components/SocialLogin/GlobalState';
+import { useRecoilState } from 'recoil';
+
+import moment from 'moment';
+import * as S from './ReservationInfo.styles';
+import 'antd/dist/antd.css';
+
+const ResevationInfo = ({ placeName, placeRegion }) => {
+  const [value] = useState(null);
+  const [userCount, setUserCount] = useState(0);
+  const [userName, setUserName] = useState('');
+  const [request, setUserRequest] = useState('');
+  const [reservationTime, setReservationTime] = useState('');
+  const [token, setToken] = useRecoilState(tokenState);
+  const [date, setDate] = useState('');
+  const location = useLocation();
+  const params = useParams();
+  const { RangePicker } = DatePicker;
+
+  const format = 'HH:mm';
+
+  const range = (start, end) => {
+    const result = [];
+
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+
+    return result;
+  };
+
+  const onChangeDate = (date, dateString) => {
+    setDate(dateString);
+  };
+
+  const disabledDate = current => {
+    let customDate = moment().format('YYYY-MM-DD');
+    return current && current < moment(customDate, 'YYYY-MM-DD');
+  };
+
+  const disabledDateTime = () => ({
+    disabledHours: () => range(0, 24).splice(4, 20),
+    disabledMinutes: () => range(30, 60),
+    disabledSeconds: () => [55, 56],
+  });
+ 
+  const onChangeTime = (time, timeString) => {
+    console.log(time, timeString);
+    setReservationTime(timeString);
+  };
+
+
+  const reservationUSer = value => {
+    setUserCount(value);
+  };
+
+  
+  const onChangeRequest = e => {
+    setUserRequest(e.target.value);
+  };
+  
+  const onChangeUserName = e => {
+    setUserName(e.target.value);
+  };
+  
+  const submit = () => {
+    fetch(`http://10.58.3.127:8000/reservations/${params.id}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: localStorage.getItem('morganToken'),
+      },
+      body: JSON.stringify({
+        reservation_date: date,
+        under_name: userName,
+        number_of_people: userCount,
+        request_message: request,
+        reservation_time: reservationTime,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.access_token) {
+          alert('예약 완료 되었습니다.');
+        }
+        alert('예약 완료 되었습니다.');
+      });
+  };
+
+  return (
+    <S.ReservationWrapper>
+      <S.Reservation>
+        <S.ReservationTitle>제주 맛집</S.ReservationTitle>
+        <S.ResevationContents>
+          <S.ResevationInfo>
+            <S.Title>지역</S.Title>
+            <S.Info>{placeRegion}</S.Info>
+          </S.ResevationInfo>
+          <S.ResevationInfo>
+            <S.Title>가게 이름</S.Title>
+            <S.Info>{placeName}</S.Info>
+          </S.ResevationInfo>
+          <S.ResevationInfo>
+            <S.Title>예약 날짜</S.Title>
+            <S.Info>
+              <DatePicker
+                format="YYYY-MM-DD"
+                disabledDate={disabledDate}
+                onChange={onChangeDate}
+              />
+            </S.Info>
+          </S.ResevationInfo>
+          <S.ResevationInfo>
+            <S.Title>시간</S.Title>
+            <S.Info>
+              <TimePicker
+                defaultValue={moment(format)}
+                format={format}
+                minuteStep={30}
+                onChange={onChangeTime}
+              />
+            </S.Info>
+          </S.ResevationInfo>
+          <S.ResevationInfo>
+            <S.Title>인원 수</S.Title>
+            <S.Info>
+              <InputNumber
+                min={1}
+                max={10}
+                defaultValue={1}
+                onChange={reservationUSer}
+              />
+            </S.Info>
+          </S.ResevationInfo>
+        </S.ResevationContents>
+
+        <S.RequestsSection>
+          <S.ResevationUserInfo>
+            <S.RequestTitle>예약자 명</S.RequestTitle>
+            <S.Info>
+              <Input
+                placeholder="예약자명"
+                prefix={<UserOutlined />}
+                onChange={onChangeUserName}
+              />
+            </S.Info>
+          </S.ResevationUserInfo>
+          <S.RequestInfo>
+            <S.RequestTitle>요청 사항</S.RequestTitle>
+            <Input showCount maxLength={500} onChange={onChangeRequest} />
+          </S.RequestInfo>
+        </S.RequestsSection>
+      </S.Reservation>
+
+      <S.ReservationButton onClick={submit}>
+        <S.DoneIcon src="/images/icon/done.png" />
+        예약
+      </S.ReservationButton>
+    </S.ReservationWrapper>
+  );
+};
+
+export default ResevationInfo;
+
+```
+antDesign을 사용하였기 때문에, antdesign의 공식 사이트에서 제공하는 옵션에 대해 보고 내가 원하는 형태를 선택하였고, nesting을 사용하여 상세한 디자인을 변경하였다. 
+각각 input에 기입되는 정보들은 useState를 사용하여 관리하였다. 
+
+submit 버튼 클릭시, ``` fetch(`http://10.58.3.127:8000/reservations/${params.id}```를 사용하여 해당 매장에 맞는 예약 정보가 POST방식으로 저장된다. 
+예약이 성공하면 예약 성공 alert창을 띄워 사용자에게 알려주었다.
+
+
+- 매장 정보중 매장의 위치는 카카오 지도 API를 사용하였다. 구글지도나 네이버등 다른 지도 API가 있지만 소셜 로그인 시 카카오를 사용하기로 했으므로, 동일하게 카카오 지도 API를 사용하였다.
+
+
+
+
 </br>
