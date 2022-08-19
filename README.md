@@ -391,7 +391,7 @@ const DetailCarousel = ({ carouselImage }) => {
 
 #### 예약기능
 
-```
+```javascript
 import React, { useEffect, useState, Space } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { TimePicker, InputNumber, Input, DatePicker } from 'antd';
@@ -567,10 +567,52 @@ antDesign을 사용하였기 때문에, antdesign의 공식 사이트에서 제�
 submit 버튼 클릭시, ``` fetch(`http://10.58.3.127:8000/reservations/${params.id}```를 사용하여 해당 매장에 맞는 예약 정보가 POST방식으로 저장된다. 
 예약이 성공하면 예약 성공 alert창을 띄워 사용자에게 알려주었다.
 
+####  매장 상세 정보 (카카오 지도 API)
 
+![bobmorgan-2](https://user-images.githubusercontent.com/93850460/185530249-4cc1a7ff-705b-4cb9-bed1-d055dd6be5f0.gif)
 - 매장 정보중 매장의 위치는 카카오 지도 API를 사용하였다. 구글지도나 네이버등 다른 지도 API가 있지만 소셜 로그인 시 카카오를 사용하기로 했으므로, 동일하게 카카오 지도 API를 사용하였다.
 
+```javascript
+/*global kakao*/
+import React, { useEffect, useRef } from 'react';
+import * as S from './Map.styles';
+const Location = ({ detailInfo }) => {
+  const { place_latitude, place_longitude } = detailInfo;
+  const mapId = useRef();
 
+  useEffect(() => {
+    let options = {
+      center: new kakao.maps.LatLng(
+        Number(place_latitude),
+        Number(place_longitude)
+      ),
+      level: 3,
+    };
+
+    let map = new kakao.maps.Map(mapId.current, options);
+    let markerPosition = new kakao.maps.LatLng(
+      Number(place_latitude),
+      Number(place_longitude)
+    );
+    let marker = new kakao.maps.Marker({
+      position: markerPosition,
+    });
+    marker.setMap(map);
+  }, [place_latitude, place_longitude]);
+
+  return (
+    <div>
+      <S.Map ref={mapId} />
+    </div>
+  );
+};
+
+export default Location;
+```
+미리 입력시켜둔 매장위치의 위도 경도값을 받아와 화면에 표시되게 하였다 
+
+❗️주의 
+마냥 쉽게 생각했는데, 카카오 지도를 사용하기 위해서는 ```<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script> ``` 이와 같이 발급받은 APP KEY를 사용해야 한다. 하지만 이 부분은 소중한 개인정보 함부로 유출되면 안되는 영역임으로 .env를 따로 만들어 개인정보를 보호하였다. 
 
 
 </br>
